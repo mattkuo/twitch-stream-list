@@ -1,0 +1,24 @@
+{
+  "name": "twitch-streamer-list",
+  "authors": [
+    "Matthew Kuo <matthewkuo92@gmail.com>"
+  ],
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.4.8",
+    "angular-animate": "~1.4.8",
+    "font-awesome": "~4.5.0",
+    "foundation": "~5.5.3",
+    "animate.css": "~3.5.1"
+  }
+}

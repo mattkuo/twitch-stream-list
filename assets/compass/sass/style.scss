@@ -1,0 +1,251 @@
+@import 'compass';
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+$light-grey: #ecf0f1;
+$flat-red: #c0392b;
+$flat-green: #27ae60;
+$flat-blue: #4aa3df;
+$darker-flat-blue: #2980b9;
+
+body {
+  background: url('http://i1167.photobucket.com/albums/q633/mattkuo/website-backgrounds/escheresque_ste_zps4eq0cibc.png');
+  font-family: Raleway, Helvetica, Roboto, Arial, sans-serif;
+}
+
+.alert-box.alert {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+
+  &.ng-hide-add {
+    @include animation(slideOutUp 1s);
+  }
+
+  &.ng-hide-remove {
+    @include animation(slideInDown 1s);
+  }
+}
+
+#wrap {
+  width: 300px;
+  margin: 0 auto 40px;
+  position: relative;
+  top: 40px;
+  background: transparent;
+  @include box-shadow();
+}
+
+#streamList {
+
+  & .search {
+    position: relative;
+
+    & > i.fa-search {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-left: none;
+      border-right: none;
+      z-index: 1;
+    }
+
+    & > input {
+      float: left;
+      margin: 0;
+      padding-left: 2rem;
+      width: 80%;
+    }
+
+    & a.add-streamer {
+      float: left;
+      width: 20%;
+      text-align: center;
+      background: $flat-blue;
+      color: white;
+
+      & > i {
+        line-height: 2.3125rem;
+      }
+
+      &.activated {
+        background-color: #2980b9;
+      }
+    }
+
+    & .bubble {
+      opacity: 0.9;
+      position: absolute;
+      right: 3px;
+      top: 30px;
+      background-color: $light-grey;
+      padding: 15px;
+      margin: 1rem 0 3rem;
+      z-index: 100;
+      @include border-radius(4px);
+      @include transition(opacity ease-in-out 0.2s);
+
+      &.ng-hide-add {
+        @include animation(fadeOutUp 0.5s);
+      }
+
+
+      &.ng-hide-remove {
+        @include animation(flipInX 0.8s);
+      }
+
+      & input[type="text"] {
+        float: left;
+        width: 80%;
+      }
+
+      & input[type="submit"] {
+        float: left;
+        width: 20%;
+        line-height: 2.3125rem;
+        color: rgba(0, 0, 0, 0.75);
+        cursor: pointer;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        border-width: 0 15px 15px;
+        border-style: solid;
+        border-color: $light-grey transparent;
+        top: -15px;
+        right: 15px;
+      }
+
+      & input {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+
+    & li {
+      position: relative;
+      list-style: none;
+      background: #fff;
+      padding: 16px;
+      border-bottom: 1px solid $light-grey;
+
+      & .delete-streamer {
+        position: absolute;
+        width: 20%;
+        height: 83px;
+        background: $flat-red;
+        top: 0;
+        right: 0;
+        text-align: center;
+        cursor: pointer;
+
+        & i {
+          line-height: 83px;
+          color: white;
+        }
+
+        &.ng-hide-add {
+          @include animation(fadeOut 0.3s);
+        }
+
+
+        &.ng-hide-remove {
+          @include animation(fadeIn 0.3s);
+        }
+      }
+
+      &.ng-enter {
+        @include animation(zoomInLeft 0.5s);
+      }
+
+      &.ng-leave {
+        @include animation(zoomOutRight 0.5s);
+      }
+
+      & a {
+        display: table;
+        color: inherit;
+
+        & > div {
+          display: table-cell;
+          vertical-align: middle;
+        }
+
+        & .logo {
+          // float: left;
+          position: relative;
+          display: inline-block;
+
+          & img {
+            width: 50px;
+            @include border-radius(50%);
+          }
+
+          & .status-icon {
+            opacity: 0.9;
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: $flat-red;
+            right: 0;
+            bottom: 0;
+            @include border-radius(50%);
+
+            &.online {
+              background-color: $flat-green;
+            }
+          }
+        }
+
+        & .info {
+          display: inline-block;
+          width: 196px;
+          margin-left: 16px;
+
+          & .status {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 11px;
+            color: $flat-blue;
+          }
+        }
+      }
+
+
+    }
+
+  }
+
+}
+
+.tabs dd {
+  width: (100% / 3);
+
+  &:nth-child(2) a {
+    color: $flat-green;
+  }
+
+  &:nth-child(3) a {
+    color: $flat-red;
+  }
+
+  &.active a {
+    @include box-shadow(0 5px 0 0 $flat-blue inset);
+  }
+
+  & a {
+    text-align: center;
+    font-size: 1.575rem;
+  }
+}

@@ -1,0 +1,68 @@
+<html ng-app="stream">
+  <head>
+    <title>Twitch Streamers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/lib/foundation/css/normalize.min.css" charset="utf-8">
+    <link rel="stylesheet" href="assets/lib/foundation/css/foundation.min.css" charset="utf-8">
+    <link rel="stylesheet" href="assets/lib/animate.css/animate.min.css" charset="utf-8">
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css" charset="utf-8">
+    <link rel="stylesheet" href="assets/css/style.css" charset="utf-8">
+
+    <script src="assets/lib/angular/angular.min.js" charset="utf-8"></script>
+    <script src="assets/lib/angular-animate/angular-animate.min.js" charset="utf-8"></script>
+    <script src="assets/scripts/script.js" charset="utf-8"></script>
+  </head>
+  <body ng-controller="GlobalController as globalCtrl">
+    <div data-alert class="alert-box alert" ng-show="globalCtrl.alertMsg">
+      {{ globalCtrl.alertMsg }}
+      <a href ng-click="globalCtrl.setAlert('')" class="close">&times;</a>
+    </div>
+    <div id="wrap" ng-controller="TabsController as tabs">
+      <section id="tabs">
+        <dl class="tabs">
+          <dd ng-class="{active:tabs.isSelected(1)}"><a href ng-click="tabs.selectTab(1)"><i class="fa fa-users"></i></a></dd>
+          <dd ng-class="{active:tabs.isSelected(2)}"><a href ng-click="tabs.selectTab(2)"><i class="fa fa-user"></i></a></dd>
+          <dd ng-class="{active:tabs.isSelected(3)}"><a href ng-click="tabs.selectTab(3)"><i class="fa fa-user-times"></i></a></dd>
+        </dl>
+      </section>
+
+      <section id="streamList" ng-controller="StreamListController as streamList">
+        <div class="search clearfix" ng-controller="AddStreamController as addStreamCtrl">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Search..." ng-model="streamList.searchText" ng-focus="addStreamCtrl.toggleAnimation(false)" ng-blur="addStreamCtrl.toggleAnimation(true)">
+          <a href class="add-streamer" ng-class="{activated:addStreamCtrl.isAddClicked}" ng-click="addStreamCtrl.onAddStreamClicked()">
+            <i class="fa fa-user-plus"></i>
+          </a>
+          <div class="bubble clearfix" ng-show="addStreamCtrl.isAddClicked">
+            <form ng-submit="addStreamCtrl.submitNewStreamer()">
+              <input type="text" placeholder="Add streamer..." ng-model="addStreamCtrl.newStreamer"/>
+              <input type="submit" class="fa fa-plus" value="&#xf067;"/>
+            </form>
+          </div>
+        </div>
+
+        <ul>
+          <li ng-show="tabs.isSelected(1) || tabs.isSelected(2) && streamer.online || tabs.isSelected(3) && !streamer.online"
+              ng-repeat="streamer in streamList.streamers | filter:streamList.searchText | orderBy:['-online', 'display_name']"
+              ng-controller="StreamerController as streamerCtrl"
+              ng-mouseover="streamerCtrl.hover(true)" ng-mouseleave="streamerCtrl.hover(false)">
+            <a href="{{ streamer.url }}" target="_blank">
+              <div class="logo">
+                <img ng-src="{{streamer.logo}}"/>
+                <div class="status-icon" ng-class="{online:streamer.online}"></div>
+              </div>
+              <div class="info">
+                <div class="display-name">{{ streamer.display_name }}</div>
+                <div ng-show="streamer.online" class="status">{{ streamer.status }}</div>
+              </div>
+            </a>
+            <div class="delete-streamer" ng-show="streamerCtrl.getHoveredState()" ng-click="streamList.removeStreamer(streamer)">
+              <i class="fa fa-times"></i>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+
+</html>
